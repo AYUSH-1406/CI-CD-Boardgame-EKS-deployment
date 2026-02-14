@@ -7,5 +7,6 @@ spec:
   selector:
     app: boardgame
   ports:
-    - port: 80
+    - name: http #For prometheus
+      port: 80
       targetPort: 8080
