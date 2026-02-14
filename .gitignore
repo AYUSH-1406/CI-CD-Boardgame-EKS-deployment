@@ -31,3 +31,21 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Terraform variable files (sensitive)
+*.tfvars
+*.tfvars.json
+
+# Terraform override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plan files
+*.tfplan
+
+# Lock file (optional — keep if team project)
+.terraform.lock.hcl
+.terraform/
