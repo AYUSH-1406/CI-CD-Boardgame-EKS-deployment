@@ -61,7 +61,7 @@ jobs:
 
       - name: Inject image into manifest
         run: |
-          sed -i "s|IMAGE_PLACEHOLDER|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
+          sed -i "s|IMAGE_PLACEHOLDER|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG|g" K8s/deployment.yaml
 
       - name: Deploy to EKS
         run: |
