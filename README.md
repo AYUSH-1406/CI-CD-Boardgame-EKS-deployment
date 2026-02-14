@@ -1,53 +1,128 @@
-# BoardgameListingWebApp
 
-## Description 
 
-**Board Game Database Full-Stack Web Application.**
-This web application displays lists of board games and their reviews. While anyone can view the board game lists and reviews, they are required to log in to add/ edit the board games and their reviews. The 'users' have the authority to add board games to the list and add reviews, and the 'managers' have the authority to edit/ delete the reviews on top of the authorities of users.  
+## 🚀 Cloud-Native Boardgame Application (EKS + RDS + CI/CD + ALB)
 
-## Technologies
+### 📌 Overview
 
-- Java
-- Spring Boot
-- Amazon Web Services(AWS) EC2
-- Thymeleaf
-- Thymeleaf Fragments
-- HTML5
-- CSS
-- JavaScript
-- Spring MVC
-- JDBC
-- H2 Database Engine (In-memory)
-- JUnit test framework
-- Spring Security
-- Twitter Bootstrap
-- Maven
+This project demonstrates a production-grade cloud-native deployment of a Spring Boot application on AWS using modern DevOps practices.
 
-## Features
+The application is containerized, deployed to Amazon EKS, connected securely to Amazon RDS (MySQL), and exposed via AWS Application Load Balancer using Ingress. Full CI/CD automation is implemented using GitHub Actions.
 
-- Full-Stack Application
-- UI components created with Thymeleaf and styled with Twitter Bootstrap
-- Authentication and authorization using Spring Security
-  - Authentication by allowing the users to authenticate with a username and password
-  - Authorization by granting different permissions based on the roles (non-members, users, and managers)
-- Different roles (non-members, users, and managers) with varying levels of permissions
-  - Non-members only can see the boardgame lists and reviews
-  - Users can add board games and write reviews
-  - Managers can edit and delete the reviews
-- Deployed the application on AWS EC2
-- JUnit test framework for unit testing
-- Spring MVC best practices to segregate views, controllers, and database packages
-- JDBC for database connectivity and interaction
-- CRUD (Create, Read, Update, Delete) operations for managing data in the database
-- Schema.sql file to customize the schema and input initial data
-- Thymeleaf Fragments to reduce redundancy of repeating HTML elements (head, footer, navigation)
+---
 
-## How to Run
+## 🏗️ Architecture
 
-1. Clone the repository
-2. Open the project in your IDE of choice
-3. Run the application
-4. To use initial user data, use the following credentials.
-  - username: bugs    |     password: bunny (user role)
-  - username: daffy   |     password: duck  (manager role)
-5. You can also sign-up as a new user and customize your role to play with the application! 😊
+```
+Internet
+   ↓
+Application Load Balancer (ALB)
+   ↓
+EKS Cluster (Private Subnets)
+   ↓
+Spring Boot Pods
+   ↓
+Amazon RDS MySQL (Private Subnet)
+```
+
+Infrastructure is provisioned using Terraform modules.
+
+---
+
+## ⚙️ Tech Stack
+
+### ☁️ Cloud
+
+* AWS EKS (Managed Node Groups)
+* Amazon RDS (MySQL)
+* Amazon ECR
+* AWS ALB (via Load Balancer Controller)
+* VPC (Public + Private Subnets)
+* NAT Gateway
+* Bastion Host
+
+### 🐳 Containerization
+
+* Docker (Distroless Image)
+* Multi-stage build
+
+### ☸️ Kubernetes
+
+* Deployment
+* ClusterIP Service
+* Ingress (ALB)
+* Secrets
+* Rolling Updates
+
+### 🔁 CI/CD
+
+* GitHub Actions
+* Docker build & push to ECR
+* Dynamic image tagging (commit SHA)
+* Auto-deployment to EKS
+
+### 📊 Monitoring
+
+* Prometheus
+* Grafana
+* Spring Boot Actuator
+
+---
+
+## 🔐 Security Implementation
+
+* Private EKS nodes
+* Private RDS instance
+* Security group layered access
+* IAM Roles for Service Accounts (IRSA)
+* Kubernetes Secrets for DB credentials
+* No public DB exposure
+
+---
+
+## 🚀 CI/CD Flow
+
+```
+Git Push → GitHub Actions
+          → Build JAR
+          → Build Docker Image
+          → Push to ECR
+          → Inject Image Tag
+          → kubectl apply
+          → Rolling Update
+```
+
+---
+
+## 📁 Project Structure
+
+```
+.
+├── src/
+├── Dockerfile
+├── pom.xml
+├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── ingress.yaml
+└── .github/workflows/deploy.yml
+```
+
+---
+
+## 🎯 Key Learnings
+
+* Infrastructure as Code (Terraform modular design)
+* Production-ready EKS networking
+* Secure RDS integration
+* ALB Ingress configuration
+* GitOps-style deployment strategy
+
+---
+
+## 📌 Future Improvements
+
+* Blue-Green deployment
+* HPA Autoscaling
+* Centralized logging (ELK/EFK)
+
+---
